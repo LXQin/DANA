@@ -1,0 +1,31 @@
+Package: DANA
+Type: Package
+Title: Data-driven Normalization Assessment for miRNA-Seq Data
+Version: 0.1.0
+Authors@R: c( 
+    person("Yannick", "D\u00fcren", email="yannick.dueren@rub.de", role=c("aut", "cre")),
+    person("Johannes", "Lederer", email="johannes.lederer@rub.de", role="aut"),
+    person("Li-Xuan", "Qin", email="qinl@mskcc.org", role="aut"))
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends:
+Imports: 
+    ggplot2 (>= 3.3.2),
+    glmnet,
+    DescTools
+Suggests: 
+    Biobase,
+    RUVSeq (>= 1.22.0),
+    EDASeq (>= 1.99.1),
+    edgeR (>= 3.30.3),
+    DESeq (>= 1.39),
+    DESeq2,
+    PoissonSeq (>= 1.1.2),
+    sva,
+    limma,
+    ggrepel,
+    ggnewscale
+RoxygenNote: 7.1.1
