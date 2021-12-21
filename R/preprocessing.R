@@ -20,7 +20,6 @@
 #'
 #' @export
 #'
-#' @examples  #TODO
 defineControls <- function(raw,
                            tZero,
                            tPoor,

@@ -6,7 +6,7 @@
 
 DANA is an approach for assessing the performance of normalization for microRNA-Seq data based on biology-motivated and data-driven metrics.
 Our approach takes advantage of well-known biological features of microRNAs for their expression pattern and polycistronic clustering to assess (1) how effectively normalization removes handling effects and (2) how normalization biases true biological signals.
-DANA is implemented in R and can be used for assessing any normalization method (under minimal assumptions) for any microRNA-Seq data set and only requires additional information on polycistronic clustering, which is typically readily available.
+DANA is implemented in R and can be used for assessing any normalization method (under minimal assumptions) for any microRNA-Seq data set and only requires additional information on polycistronic clustering or marker location on the genome, which is typically readily available.
 
 In general, you can apply the DANA assessment for any normalization method as long as the normalized counts are non-negative.
 For simplicity, we provide eight commonly used normalization methods:
@@ -20,14 +20,14 @@ For simplicity, we provide eight commonly used normalization methods:
  - Quantile Normalization (QN)
  - Remove Unwanted Variation (with subtypes: RUVg, RUVr, and RUVs)
  
-For each normalization method under study, DANA computes two assessment metrics: `cc` and `mcr`:
+For each normalization method under study, DANA computes two assessment metrics: $cc$ and $mcr$:
  
- - `cc` measures the preservation of biological signals before versus after normalization. A high value indicates a high preservation of biological signals (cc <= 1).
- - `mcr` measures the relative reduction of handling before versus after normalization. A high `mcr` indicates higher removal of handling effects.
+ - $cc$ measures the preservation of biological signals before versus after normalization. A high value indicates a high preservation of biological signals ($cc$ <= 1).
+ - $mcr$ measures the relative reduction of handling before versus after normalization. A high $mcr$ indicates higher removal of handling effects.
 
-An optimal normalization maximally removes handling effects (high `mcr`) while keeping biological signals intact (`cc` close to 1).
-However, in most cases, there is no clear "best" method with maximal `mcr` _and_ maximal cc.
-Therefore, one should aim for the best possible trade-off between the proposed statistics for negative and positive controls with an emphasis on keeping biological signals intact (`cc` close to 1).
+An optimal normalization maximally removes handling effects (high $mcr$) while keeping biological signals intact ($cc$ close to 1).
+However, in most cases, there is no clear "best" method with maximal $mcr$ _and_ maximal $cc$.
+Therefore, one should aim for the best possible trade-off between the proposed statistics for negative and positive controls with an emphasis on keeping biological signals intact ($cc$ close to 1).
 The two metrics can be easily assessed by plotting the metrics in a scatter plot (see function `plotDANA`) for each normalization method under study, where a preferable method should be located towards the top-right quadrant of the plot.
 
 
@@ -77,10 +77,10 @@ Assess the normalization for your data set:
 ```R
 res <- assessNormalization(
   raw=raw.counts,
-  normalized=normalized,
-  negControls=controls$negControls,
-  posControls=controls$posControls,
-  clusters=clusters)
+  normalized  = normalized,
+  negControls = controls$negControls,
+  posControls = controls$posControls,
+  clusters    = clusters)
 ```
 
 

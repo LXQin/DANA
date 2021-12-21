@@ -16,8 +16,8 @@
 #' @export plotMeanSD
 #'
 #' @examples
-#' counts <- matrix(rnbinom(100, mu=3, size=0.01), nrow=20)
-#' plot.mean.sd(counts)
+#' counts <- matrix(rnbinom(1000, mu=3, size=0.01), nrow=50)
+#' plotMeanSD(counts)
 plotMeanSD <- function(raw, tZero, tPoor, tWell, title, xlim.max=NA, ylim.max=NA) {
   df <- data.frame(data.mean= rowMeans(log2(raw + 1)),
                    data.var = apply(log2(raw + 1), 1, stats::sd))
@@ -79,8 +79,8 @@ plotMeanSD <- function(raw, tZero, tPoor, tWell, title, xlim.max=NA, ylim.max=NA
 #' @export plotCountHist
 #'
 #' @examples
-#' counts <- matrix(rnbinom(100, mu=3, size=0.01), nrow=20)
-#' plot.countHist(counts)
+#' counts <- matrix(rnbinom(1000, mu=3, size=0.01), nrow=50)
+#' plotCountHist(counts)
 plotCountHist <- function(raw, binwidth=0.1, tZero, tPoor, tWell, title) {
   if(missing(tZero)) {
     vline.t.zero <- ggplot2::geom_blank()
@@ -129,17 +129,17 @@ plotCountHist <- function(raw, binwidth=0.1, tZero, tPoor, tWell, title) {
 #'   before versus after normalization.
 #'   A high value indicates a high preservation of biological signals
 #'   (\code{cc} <= 1)}
-#'   \item{mcr}{\code{mcr} measures the relative reduction of handling before
-#'   versus after normalization. A high \code{mcr} indicates higher
+#'   \item{mscr}{\code{mscr} measures the relative reduction of handling before
+#'   versus after normalization. A high \code{mscr} indicates higher
 #'   removal of handling effects.}
 #' }
 #' When selecting a normalization method for the \code{raw} data, one should
-#' aim for the best possible trade-off of hight cc and high mcr.
+#' aim for the best possible trade-off of hight cc and high mscr.
 #' This function generates a \code{ggplot} scatter plot of the DANA metrics
 #' for the selection of a most suitable normalization method.
 #'
 #' @param metrics \code{data.frame} of DANA metrics containing
-#' the metrics \code{cc} and \code{mcr} as columns.
+#' the metrics \code{cc} and \code{mscr} as columns.
 #' Each row represents a normalization method.
 #' @param label.size \emph{Optional.} Text size of the plot labels.
 #' @param label.repel \emph{Optional.} Logical if the
@@ -163,13 +163,14 @@ plotDANA <- function(metrics, label.size=3, label.repel=FALSE) {
 
   df <- data.frame(method=rownames(metrics),
                    cc = metrics$cc,
-                   mcr = metrics$mcr)
+                   mscr = metrics$mscr)
 
-  p <- ggplot2::ggplot(df, ggplot2::aes(x=mcr, y=cc, label=method)) +
+  p <- ggplot2::ggplot(df, ggplot2::aes(x=mscr, y=cc, label=method)) +
        ggplot2::geom_point(alpha=1)
 
   if(label.repel) {
-    p <- p + ggrepel::geom_text_repel(ggplot2::aes(label = method), size=label.size)
+    p <- p + ggrepel::geom_text_repel(ggplot2::aes(label = method),
+                                      size=label.size, max.overlaps = Inf)
   } else {
     p <- p + ggplot2::geom_text(size=label.size, hjust=0, vjust=0)
   }

@@ -40,17 +40,19 @@ DANA Assessment metrics for the provided normalized counts (for each
   \item{cc}{\code{cc} measures the preservation of biological signals
   before versus after normalization.
   A high value indicates a high preservation of biological signals
-  (\code{cc} <= 1)}
-  \item{mcr}{\code{mcr} measures the relative reduction of handling before
-  versus after normalization. A high \code{mcr} indicates higher
-  removal of handling effects.}
+  (\code{cc} <= 1).
+  In particular, \code{cc} is the concordance correlation coefficient of the
+  within-cluster partial correlation among positive controls before and
+  after normalization.}
+  \item{mscr}{\code{mscr} measures the relative reduction of handling before
+  versus after normalization. A high \code{mscr} indicates higher
+  removal of handling effects.
+  In particular, \code{mscr} is the mean-squared correlation reduction in
+  negative controls before and after normalization.}
 }
 When selecting a normalization method for the \code{raw} data, one should
-aim for the best possible trade-off of hight cc and high mcr.
+aim for the best possible trade-off of hight cc and high mscr.
 }
 \description{
 Data-driven miRNA sequencing Normalization Assessment
-}
-\examples{
-#TODO
 }

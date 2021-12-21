@@ -31,6 +31,3 @@ List of two vectors:
 \description{
 Definition of negative and positive control miRNAs for DANA normalization assessment
 }
-\examples{
- #TODO
-}

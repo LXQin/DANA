@@ -8,7 +8,7 @@ plotDANA(metrics, label.size = 3, label.repel = FALSE)
 }
 \arguments{
 \item{metrics}{\code{data.frame} of DANA metrics containing
-the metrics \code{cc} and \code{mcr} as columns.
+the metrics \code{cc} and \code{mscr} as columns.
 Each row represents a normalization method.}
 
 \item{label.size}{\emph{Optional.} Text size of the plot labels.}
@@ -31,12 +31,12 @@ the columns:
   before versus after normalization.
   A high value indicates a high preservation of biological signals
   (\code{cc} <= 1)}
-  \item{mcr}{\code{mcr} measures the relative reduction of handling before
-  versus after normalization. A high \code{mcr} indicates higher
+  \item{mscr}{\code{mscr} measures the relative reduction of handling before
+  versus after normalization. A high \code{mscr} indicates higher
   removal of handling effects.}
 }
 When selecting a normalization method for the \code{raw} data, one should
-aim for the best possible trade-off of hight cc and high mcr.
+aim for the best possible trade-off of hight cc and high mscr.
 This function generates a \code{ggplot} scatter plot of the DANA metrics
 for the selection of a most suitable normalization method.
 }

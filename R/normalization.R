@@ -31,7 +31,7 @@ applyNormalization <- function(data,
                                )) {
   method <- match.arg(
     method,
-    c("TC", "UQ", "Median", "TMM", "DESeq", "PoissonSeq", "QN", "RUV"),
+    c("TC", "UQ", "median", "TMM", "DESeq", "PoissonSeq", "QN", "RUV"),
     several.ok = TRUE
   )
 
@@ -239,7 +239,7 @@ norm.TMM <- function(raw, groups = rep(1, ncol(raw))) {
 # https://bioconductor.org/packages/release/bioc/vignettes/DESeq/inst/doc/DESeq.pdf
 # page 4
 norm.DESeq <- function(raw, groups = rep(1, ncol(raw))) {
-  if (!requireNamespace("DESeq", quietly = TRUE)) {
+  if (!requireNamespace("DESeq2", quietly = TRUE)) {
     stop("Package \"DESeq\" needed for this function to work. Please install it.",
       call. = FALSE
     )
@@ -250,16 +250,14 @@ norm.DESeq <- function(raw, groups = rep(1, ncol(raw))) {
     )
   }
 
-  condition <- factor(groups)
-  dat.DGE <- DESeq::estimateSizeFactors(
-    DESeq::newCountDataSet(round(raw), condition)
-  )
-  scalingFactor <- DESeq::sizeFactors(dat.DGE)
+  condition <- data.frame(SampleName = colnames(raw), Condition = factor(groups))
+  rownames(condition) = colnames(raw)
+  dat.DGE <- DESeq2::DESeqDataSetFromMatrix(countData = raw, colData = condition, design = ~ Condition)
+  dat.DGE <- DESeq2::estimateSizeFactors(dat.DGE)
+  scalingFactor <- DESeq2::sizeFactors(dat.DGE)
   dataNormalized <- BiocGenerics::counts(dat.DGE, normalized = T)
-  return(list(
-    dataNormalized = dataNormalized,
-    scalingFactor = scalingFactor
-  ))
+  return(list(dataNormalized = dataNormalized,
+              scalingFactor = scalingFactor))
 }
 
 

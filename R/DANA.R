@@ -31,16 +31,20 @@
 #'   \item{cc}{\code{cc} measures the preservation of biological signals
 #'   before versus after normalization.
 #'   A high value indicates a high preservation of biological signals
-#'   (\code{cc} <= 1)}
-#'   \item{mcr}{\code{mcr} measures the relative reduction of handling before
-#'   versus after normalization. A high \code{mcr} indicates higher
-#'   removal of handling effects.}
+#'   (\code{cc} <= 1).
+#'   In particular, \code{cc} is the concordance correlation coefficient of the
+#'   within-cluster partial correlation among positive controls before and
+#'   after normalization.}
+#'   \item{mscr}{\code{mscr} measures the relative reduction of handling before
+#'   versus after normalization. A high \code{mscr} indicates higher
+#'   removal of handling effects.
+#'   In particular, \code{mscr} is the mean-squared correlation reduction in
+#'   negative controls before and after normalization.}
 #' }
 #' When selecting a normalization method for the \code{raw} data, one should
-#' aim for the best possible trade-off of hight cc and high mcr.
+#' aim for the best possible trade-off of hight cc and high mscr.
 #' @export
 #'
-#' @examples #TODO
 assessNormalization <- function(raw,
                                 normalized,
                                 negControls,
@@ -163,10 +167,10 @@ assessNormalization <- function(raw,
 
   ### ASSESS NORMALIZATION -----------------------------------------------------
 
-  ## Compute metric mcr- for negative controls
-  mcr <- rep(NA, num.norm)
+  ## Compute metric mscr- for negative controls
+  mscr <- rep(NA, num.norm)
   for (i in 1:num.norm) {
-    mcr[i] <- compute.mcr(raw.corNeg, norm.corNeg[[i]])
+    mscr[i] <- compute.mscr(raw.corNeg, norm.corNeg[[i]])
   }
 
   ## Compute metric cc+ for positive controls
@@ -176,7 +180,7 @@ assessNormalization <- function(raw,
   }
 
   ## Return result metrics
-  metrics <- data.frame(cc, mcr)
+  metrics <- data.frame(cc, mscr)
   rownames(metrics) <- names(normalized)
   return(metrics)
 }
@@ -185,10 +189,10 @@ assessNormalization <- function(raw,
 
 #' Compute the mean correlation reduction in negative controls
 #' @keywords internal
-compute.mcr <- function(rawCor, normCor) {
-  mean.rawCor <- sum(pmax(rawCor[upper.tri(rawCor)], 0)) / sum(upper.tri(rawCor))
-  mean.normCor <- sum(pmax(normCor[upper.tri(normCor)], 0)) / sum(upper.tri(normCor))
-  return((mean.rawCor - mean.normCor) / mean.rawCor)
+compute.mscr <- function(rawCor, normCor) {
+  varZero.rawCor <- sum(rawCor[upper.tri(rawCor)]^2) / sum(upper.tri(rawCor))
+  varZero.normCor <- sum(normCor[upper.tri(normCor)]^2) / sum(upper.tri(normCor))
+  return((varZero.rawCor - varZero.normCor) / varZero.rawCor)
 }
 
 
@@ -220,15 +224,15 @@ compute.cc <- function(rawCor, normCor, clusters) {
   }
 
   ## Compute the concordance correlation between nonzero partial correlations
-  idx <- clusters.raw | clusters.norm
-  if (sum(idx)>0) {
-    cc <- DescTools::CCC(as.vector(clusters.raw[idx]),
-                         as.vector(clusters.norm[idx]))$rho.c$est
-  } else {
-    cc <- 0
-  }
+  # idx <- clusters.raw | clusters.norm
+  # if (sum(idx)>0) {
+  #   cc <- DescTools::CCC(as.vector(clusters.raw[idx]),
+  #                        as.vector(clusters.norm[idx]))$rho.c$est
+  # } else {
+  #   cc <- 0
+  # }
 
-  # cc <- DescTools::CCC(as.vector(clusters.raw),as.vector(clusters.norm))$rho.c$est
+  cc <- DescTools::CCC(as.vector(clusters.raw),as.vector(clusters.norm))$rho.c$est
 
   return(cc)
 }

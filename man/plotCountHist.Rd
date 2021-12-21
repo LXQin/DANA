@@ -30,6 +30,6 @@ read counts. Bounds for the definition of positive
 and negative controls can be highlighted by vertical lines (if given).
 }
 \examples{
-counts <- matrix(rnbinom(100, mu=3, size=0.01), nrow=20)
-plot.countHist(counts)
+counts <- matrix(rnbinom(1000, mu=3, size=0.01), nrow=50)
+plotCountHist(counts)
 }

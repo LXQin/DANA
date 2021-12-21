@@ -1,13 +1,21 @@
 Package: DANA
 Type: Package
 Title: Data-driven Normalization Assessment for miRNA-Seq Data
-Version: 0.1.0
+Version: 1.1.0
 Authors@R: c( 
     person("Yannick", "D\u00fcren", email="yannick.dueren@rub.de", role=c("aut", "cre")),
     person("Johannes", "Lederer", email="johannes.lederer@rub.de", role="aut"),
     person("Li-Xuan", "Qin", email="qinl@mskcc.org", role="aut"))
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: DANA is an approach for assessing the performance of normalization 
+    for microRNA-Seq data based on biology-motivated and data-driven metrics.
+    DANA takes advantage of well-known biological features of microRNAs for 
+    their expression pattern and polycistronic clustering to assess 
+    (1) how effectively normalization removes handling effects and 
+    (2) how normalization biases true biological signals.
+    DANA can assess any normalization method (under minimal assumptions) for 
+    any microRNA-Seq data set and only requires additional information on 
+    polycistronic clustering or marker location on the genome, 
+    which is typically readily available.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -21,11 +29,10 @@ Suggests:
     RUVSeq (>= 1.22.0),
     EDASeq (>= 1.99.1),
     edgeR (>= 3.30.3),
-    DESeq (>= 1.39),
     DESeq2,
     PoissonSeq (>= 1.1.2),
     sva,
     limma,
     ggrepel,
     ggnewscale
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
