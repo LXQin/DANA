@@ -4,7 +4,13 @@
 \alias{plotDANA}
 \title{Scatter plot DANA assessment metrics}
 \usage{
-plotDANA(metrics, label.size = 3, label.repel = FALSE)
+plotDANA(
+  metrics,
+  label.size = 3,
+  label.repel = FALSE,
+  fixed.limits.x = TRUE,
+  fixed.limits.y = TRUE
+)
 }
 \arguments{
 \item{metrics}{\code{data.frame} of DANA metrics containing
@@ -16,6 +22,12 @@ Each row represents a normalization method.}
 \item{label.repel}{\emph{Optional.} Logical if the
 \code{ggrepel} package is used to space point labels.
 Requires the package \code{ggrepel} to be installed.}
+
+\item{fixed.limits.x}{\emph{Optional.} Logical if the limits of the x-axis
+(mscr-) are fixed to [0,1]}
+
+\item{fixed.limits.y}{\emph{Optional.} Logical if the limits of the y-axis
+(cc+) are fixed to [0,1]}
 }
 \value{
 \code{ggplot} object of a scatter plot for the given DANA metrics.

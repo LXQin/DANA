@@ -145,11 +145,16 @@ plotCountHist <- function(raw, binwidth=0.1, tZero, tPoor, tWell, title) {
 #' @param label.repel \emph{Optional.} Logical if the
 #' \code{ggrepel} package is used to space point labels.
 #' Requires the package \code{ggrepel} to be installed.
+#' @param fixed.limits.x \emph{Optional.} Logical if the limits of the x-axis
+#' (mscr-) are fixed to [0,1]
+#' @param fixed.limits.y \emph{Optional.} Logical if the limits of the y-axis
+#' (cc+) are fixed to [0,1]
+#'
 #'
 #' @return \code{ggplot} object of a scatter plot for the given DANA metrics.
 #'
 #' @export plotDANA
-plotDANA <- function(metrics, label.size=3, label.repel=FALSE) {
+plotDANA <- function(metrics, label.size=3, label.repel=FALSE, fixed.limits.x=TRUE, fixed.limits.y=TRUE) {
   if (label.repel) {
     if (!requireNamespace("ggrepel", quietly = TRUE)) {
       stop("Package \"ggrepel\" needed for this function to work. Please install it.",
@@ -177,12 +182,20 @@ plotDANA <- function(metrics, label.size=3, label.repel=FALSE) {
 
   p <- p +
     ggplot2::theme_classic() +
-    ggplot2::xlab("$Relative reduction of handling effects") +
-    ggplot2::ylab("Biological signal preservation") +
-    # ggplot2::geom_text_repel(aes(label = method), size=3) +
-    ggplot2::scale_x_continuous(labels = scales::percent, limits = c(0,1)) +
-    ggplot2::scale_y_continuous(labels = scales::percent, limits = c(0,1))
+    ggplot2::xlab("mscr-; Relative reduction of handling effects") +
+    ggplot2::ylab("cc+; Biological signal preservation")
 
+  if(fixed.limits.x) {
+    p <- p + ggplot2::scale_x_continuous(labels = scales::percent, limits = c(0,1))
+  } else {
+    p <- p + ggplot2::scale_x_continuous(labels = scales::percent)
+  }
+
+  if(fixed.limits.y) {
+    p <- p + ggplot2::scale_y_continuous(labels = scales::percent, limits = c(0,1))
+  } else {
+    p <- p + ggplot2::scale_y_continuous(labels = scales::percent)
+  }
   options(scipen=scipen.prev)  # reset scipen option
   return(p)
 }
