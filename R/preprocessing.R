@@ -100,6 +100,11 @@ defineClusters <- function(genes, chr, pos, threshold=10000) {
   if ((length(genes) != length(chr)) || length(genes) != length(pos)){
     stop("Lengths of vectors genes, chr, and pos must agree.")
   }
+  # Check for NAs
+  if(anyNA(genes)) stop("genes array contains NAs.")
+  if(anyNA(chr)) stop("chr array contains NAs.")
+  if(anyNA(position)) stop("position array contains NAs.")
+
   names(chr) <- names(pos) <- genes
   chr <- as.factor(chr)
   clusters <- rep(NA, length(genes))
