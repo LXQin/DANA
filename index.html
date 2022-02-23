@@ -117,9 +117,9 @@
 <code class="sourceCode R"><span class="va">clusters</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/defineClusters.html">defineClusters</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">raw.counts</span><span class="op">)</span>, <span class="va">chr</span>, <span class="va">loc</span><span class="op">)</span>
 <span class="va">controls</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/defineControls.html">defineControls</a></span><span class="op">(</span>
   <span class="va">raw.counts</span>, 
-  t.zero <span class="op">=</span> <span class="fl">2</span>,     <span class="co"># lower count bound for negative controls</span>
-  t.poor <span class="op">=</span> <span class="fl">10</span>,    <span class="co"># upper count bound for negative controls</span>
-  t.well <span class="op">=</span> <span class="fl">100</span>,   <span class="co"># lower count bound for positive controls</span>
+  tZero <span class="op">=</span> <span class="fl">2</span>,     <span class="co"># lower count bound for negative controls</span>
+  tPoor <span class="op">=</span> <span class="fl">10</span>,    <span class="co"># upper count bound for negative controls</span>
+  tWell <span class="op">=</span> <span class="fl">100</span>,   <span class="co"># lower count bound for positive controls</span>
   <span class="va">clusters</span><span class="op">)</span></code></pre></div>
 <p>Assess the normalization for your data set:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
