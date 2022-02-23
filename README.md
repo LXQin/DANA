@@ -20,14 +20,14 @@ For simplicity, we provide eight commonly used normalization methods:
  - Quantile Normalization (QN)
  - Remove Unwanted Variation (with subtypes: RUVg, RUVr, and RUVs)
  
-For each normalization method under study, DANA computes two assessment metrics: $cc$ and $mcr$:
+For each normalization method under study, DANA computes two assessment metrics: `cc` and `mscr`:
  
- - $cc$ measures the preservation of biological signals before versus after normalization. A high value indicates a high preservation of biological signals ($cc$ <= 1).
- - $mcr$ measures the relative reduction of handling before versus after normalization. A high $mcr$ indicates higher removal of handling effects.
+ - `cc` measures the preservation of biological signals before versus after normalization. A high value indicates a high preservation of biological signals (`cc` <= 1).
+ - `mscr` measures the relative reduction of handling before versus after normalization. A high `mscr` indicates higher removal of handling effects.
 
-An optimal normalization maximally removes handling effects (high $mcr$) while keeping biological signals intact ($cc$ close to 1).
-However, in most cases, there is no clear "best" method with maximal $mcr$ _and_ maximal $cc$.
-Therefore, one should aim for the best possible trade-off between the proposed statistics for negative and positive controls with an emphasis on keeping biological signals intact ($cc$ close to 1).
+An optimal normalization maximally removes handling effects (high `mscr`) while keeping biological signals intact (`cc` close to 1).
+However, in most cases, there is no clear "best" method with maximal `mscr` _and_ maximal `cc`.
+Therefore, one should aim for the best possible trade-off between the proposed statistics for negative and positive controls with an emphasis on keeping biological signals intact (`cc` close to 1).
 The two metrics can be easily assessed by plotting the metrics in a scatter plot (see function `plotDANA`) for each normalization method under study, where a preferable method should be located towards the top-right quadrant of the plot.
 
 
@@ -43,10 +43,12 @@ devtools::install_github("LXQin/DANA")
 
 ## Usage
 
-Users neet to input a raw count matrix from RNA-Seq studies (without any normalization or transformation) and information about polycistronic clustering of miRNAs.
+Please refer to the [documentation page](https://lxqin.github.io/DANA/) for detailed function references.
+
+Generally, users need to provide a raw count matrix from RNA-Seq studies (without any normalization or transformation) and information about polycistronic clustering of miRNAs.
 Clustering information can be readily generated using the `defineClusters` function if miRNA chromosome and location information (base-pair/nucleotide location) is available.
 
-Assume `raw.counts` hold the raw un-normalized count data where row names correspond to sample names and column names correspond to marker names.
+Assume that `raw.counts` hold the raw un-normalized count data where row names correspond to sample names and column names correspond to marker names.
 `groups` is a vector of sample groups (e.g. sample sub-types).
 Further, `chr` and `loc` provide information about the chromosome and location of each marker in `raw.counts`. 
 
@@ -67,7 +69,7 @@ clusters <- defineClusters(colnames(raw.counts), chr, loc)
 controls <- defineControls(
   raw.counts, 
   tZero = 2,     # lower count bound for negative controls
-  tPoor = 10,    # upper count bound for negative controls
+  tPoor = 5,    # upper count bound for negative controls
   tWell = 100,   # lower count bound for positive controls
   clusters)
 ```
