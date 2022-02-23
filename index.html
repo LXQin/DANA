@@ -85,14 +85,14 @@
 <li>Quantile Normalization (QN)</li>
 <li>Remove Unwanted Variation (with subtypes: RUVg, RUVr, and RUVs)</li>
 </ul>
-<p>For each normalization method under study, DANA computes two assessment metrics: <span class="math inline"><em>c</em><em>c</em></span> and <span class="math inline"><em>m</em><em>c</em><em>r</em></span>:</p>
+<p>For each normalization method under study, DANA computes two assessment metrics: <code>cc</code> and <code>mscr</code>:</p>
 <ul>
 <li>
-<span class="math inline"><em>c</em><em>c</em></span> measures the preservation of biological signals before versus after normalization. A high value indicates a high preservation of biological signals (<span class="math inline"><em>c</em><em>c</em></span> &lt;= 1).</li>
+<code>cc</code> measures the preservation of biological signals before versus after normalization. A high value indicates a high preservation of biological signals (<code>cc</code> &lt;= 1).</li>
 <li>
-<span class="math inline"><em>m</em><em>c</em><em>r</em></span> measures the relative reduction of handling before versus after normalization. A high <span class="math inline"><em>m</em><em>c</em><em>r</em></span> indicates higher removal of handling effects.</li>
+<code>mscr</code> measures the relative reduction of handling before versus after normalization. A high <code>mscr</code> indicates higher removal of handling effects.</li>
 </ul>
-<p>An optimal normalization maximally removes handling effects (high <span class="math inline"><em>m</em><em>c</em><em>r</em></span>) while keeping biological signals intact (<span class="math inline"><em>c</em><em>c</em></span> close to 1). However, in most cases, there is no clear “best” method with maximal <span class="math inline"><em>m</em><em>c</em><em>r</em></span> <em>and</em> maximal <span class="math inline"><em>c</em><em>c</em></span>. Therefore, one should aim for the best possible trade-off between the proposed statistics for negative and positive controls with an emphasis on keeping biological signals intact (<span class="math inline"><em>c</em><em>c</em></span> close to 1). The two metrics can be easily assessed by plotting the metrics in a scatter plot (see function <code>plotDANA</code>) for each normalization method under study, where a preferable method should be located towards the top-right quadrant of the plot.</p>
+<p>An optimal normalization maximally removes handling effects (high <code>mscr</code>) while keeping biological signals intact (<code>cc</code> close to 1). However, in most cases, there is no clear “best” method with maximal <code>mscr</code> <em>and</em> maximal <code>cc</code>. Therefore, one should aim for the best possible trade-off between the proposed statistics for negative and positive controls with an emphasis on keeping biological signals intact (<code>cc</code> close to 1). The two metrics can be easily assessed by plotting the metrics in a scatter plot (see function <code>plotDANA</code>) for each normalization method under study, where a preferable method should be located towards the top-right quadrant of the plot.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -104,8 +104,9 @@
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>Users neet to input a raw count matrix from RNA-Seq studies (without any normalization or transformation) and information about polycistronic clustering of miRNAs. Clustering information can be readily generated using the <code>defineClusters</code> function if miRNA chromosome and location information (base-pair/nucleotide location) is available.</p>
-<p>Assume <code>raw.counts</code> hold the raw un-normalized count data where row names correspond to sample names and column names correspond to marker names. <code>groups</code> is a vector of sample groups (e.g. sample sub-types). Further, <code>chr</code> and <code>loc</code> provide information about the chromosome and location of each marker in <code>raw.counts</code>.</p>
+<p>Please refer to the <a href="https://lxqin.github.io/DANA/" class="external-link">documentation page</a> for detailed function references.</p>
+<p>Generally, users need to provide a raw count matrix from RNA-Seq studies (without any normalization or transformation) and information about polycistronic clustering of miRNAs. Clustering information can be readily generated using the <code>defineClusters</code> function if miRNA chromosome and location information (base-pair/nucleotide location) is available.</p>
+<p>Assume that <code>raw.counts</code> hold the raw un-normalized count data where row names correspond to sample names and column names correspond to marker names. <code>groups</code> is a vector of sample groups (e.g. sample sub-types). Further, <code>chr</code> and <code>loc</code> provide information about the chromosome and location of each marker in <code>raw.counts</code>.</p>
 <p>First, normalize the raw count data using the provided normalization routine:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">normalized</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/applyNormalization.html">applyNormalization</a></span><span class="op">(</span>
@@ -118,7 +119,7 @@
 <span class="va">controls</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/defineControls.html">defineControls</a></span><span class="op">(</span>
   <span class="va">raw.counts</span>, 
   tZero <span class="op">=</span> <span class="fl">2</span>,     <span class="co"># lower count bound for negative controls</span>
-  tPoor <span class="op">=</span> <span class="fl">10</span>,    <span class="co"># upper count bound for negative controls</span>
+  tPoor <span class="op">=</span> <span class="fl">5</span>,    <span class="co"># upper count bound for negative controls</span>
   tWell <span class="op">=</span> <span class="fl">100</span>,   <span class="co"># lower count bound for positive controls</span>
   <span class="va">clusters</span><span class="op">)</span></code></pre></div>
 <p>Assess the normalization for your data set:</p>
