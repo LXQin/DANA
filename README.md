@@ -66,9 +66,9 @@ Adjust the bounds for positive and negative controls to your data set, e.g. usin
 clusters <- defineClusters(colnames(raw.counts), chr, loc)
 controls <- defineControls(
   raw.counts, 
-  t.zero = 2,     # lower count bound for negative controls
-  t.poor = 10,    # upper count bound for negative controls
-  t.well = 100,   # lower count bound for positive controls
+  tZero = 2,     # lower count bound for negative controls
+  tPoor = 10,    # upper count bound for negative controls
+  tWell = 100,   # lower count bound for positive controls
   clusters)
 ```
 
