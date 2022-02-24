@@ -103,7 +103,7 @@ defineClusters <- function(genes, chr, pos, threshold=10000) {
   # Check for NAs
   if(anyNA(genes)) stop("genes array contains NAs.")
   if(anyNA(chr)) stop("chr array contains NAs.")
-  if(anyNA(position)) stop("position array contains NAs.")
+  if(anyNA(pos)) stop("pos array contains NAs.")
 
   names(chr) <- names(pos) <- genes
   chr <- as.factor(chr)
