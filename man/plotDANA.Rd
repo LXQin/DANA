@@ -8,8 +8,9 @@ plotDANA(
   metrics,
   label.size = 3,
   label.repel = FALSE,
-  fixed.limits.x = TRUE,
-  fixed.limits.y = TRUE
+  limits.x,
+  limits.y,
+  title
 )
 }
 \arguments{
@@ -23,14 +24,20 @@ Each row represents a normalization method.}
 \code{ggrepel} package is used to space point labels.
 Requires the package \code{ggrepel} to be installed.}
 
-\item{fixed.limits.x}{\emph{Optional.} Logical if the limits of the x-axis
-(mscr-) are fixed to [0,1]}
+\item{limits.x}{\emph{Optional.} Must be either missing, NA, or c(x1,x2).
+If not given, x-axis limits are set to [0,1].
+If NA, x-axis limits are automatically scaled to the data.
+If c(x1,x2), x-axis limits are scaled to the interval [x1,x2].}
 
-\item{fixed.limits.y}{\emph{Optional.} Logical if the limits of the y-axis
-(cc+) are fixed to [0,1]}
+\item{limits.y}{\emph{Optional.} Must be either missing, NA, or c(y1,y2).
+If not given, y-axis limits are set to [0,1].
+If NA, y-axis limits are automatically scaled to the data.
+If c(y1,y2), y-axis limits are scaled to the interval [y1,y2].}
+
+\item{title}{\emph{Optional.} Plot title}
 }
 \value{
-\code{ggplot} object of a scatter plot for the given DANA metrics.
+\code{ggplot2} object of a scatter plot for the given DANA metrics.
 }
 \description{
 Plot function for a scatter plot of the DANA result metrics generated

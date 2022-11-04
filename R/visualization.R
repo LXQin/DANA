@@ -145,16 +145,22 @@ plotCountHist <- function(raw, binwidth=0.1, tZero, tPoor, tWell, title) {
 #' @param label.repel \emph{Optional.} Logical if the
 #' \code{ggrepel} package is used to space point labels.
 #' Requires the package \code{ggrepel} to be installed.
-#' @param fixed.limits.x \emph{Optional.} Logical if the limits of the x-axis
-#' (mscr-) are fixed to [0,1]
-#' @param fixed.limits.y \emph{Optional.} Logical if the limits of the y-axis
-#' (cc+) are fixed to [0,1]
+#' @param limits.x \emph{Optional.} Must be either missing, NA, or c(x1,x2).
+#' If not given, x-axis limits are set to [0,1].
+#' If NA, x-axis limits are automatically scaled to the data.
+#' If c(x1,x2), x-axis limits are scaled to the interval [x1,x2].
+#' @param limits.y \emph{Optional.} Must be either missing, NA, or c(y1,y2).
+#' If not given, y-axis limits are set to [0,1].
+#' If NA, y-axis limits are automatically scaled to the data.
+#' If c(y1,y2), y-axis limits are scaled to the interval [y1,y2].
+#' @param title \emph{Optional.} Plot title
 #'
 #'
-#' @return \code{ggplot} object of a scatter plot for the given DANA metrics.
+#' @return \code{ggplot2} object of a scatter plot for the given DANA metrics.
 #'
 #' @export plotDANA
-plotDANA <- function(metrics, label.size=3, label.repel=FALSE, fixed.limits.x=TRUE, fixed.limits.y=TRUE) {
+plotDANA <- function(metrics, label.size=3, label.repel=FALSE,
+                     limits.x, limits.y, title) {
   if (label.repel) {
     if (!requireNamespace("ggrepel", quietly = TRUE)) {
       stop("Package \"ggrepel\" needed for this function to work. Please install it.",
@@ -180,22 +186,34 @@ plotDANA <- function(metrics, label.size=3, label.repel=FALSE, fixed.limits.x=TR
     p <- p + ggplot2::geom_text(size=label.size, hjust=0, vjust=0)
   }
 
+  if(missing(title)) {
+    title <- ggplot2::geom_blank()
+  } else {
+    title <- ggplot2::ggtitle(title)
+  }
+  p <- p + title
+
   p <- p +
     ggplot2::theme_classic() +
     ggplot2::xlab("mscr-; Relative reduction of handling effects") +
     ggplot2::ylab("cc+; Biological signal preservation")
 
-  if(fixed.limits.x) {
+  if(missing(limits.x)) {  # default limits [0,1]
     p <- p + ggplot2::scale_x_continuous(labels = scales::percent, limits = c(0,1))
-  } else {
+  } else if(anyNA(limits.x)) {
     p <- p + ggplot2::scale_x_continuous(labels = scales::percent)
+  } else {  # use given limits
+    p <- p + ggplot2::scale_x_continuous(labels = scales::percent, limits = limits.x)
   }
 
-  if(fixed.limits.y) {
+  if(missing(limits.y)) {  # default limits [0,1]
     p <- p + ggplot2::scale_y_continuous(labels = scales::percent, limits = c(0,1))
-  } else {
+  } else if(anyNA(limits.y)) {
     p <- p + ggplot2::scale_y_continuous(labels = scales::percent)
+  } else {  # use given limits
+    p <- p + ggplot2::scale_y_continuous(labels = scales::percent, limits = limits.y)
   }
+
   options(scipen=scipen.prev)  # reset scipen option
   return(p)
 }
