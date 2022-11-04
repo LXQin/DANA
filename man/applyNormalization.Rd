@@ -7,12 +7,12 @@
 applyNormalization(
   data,
   groups,
-  method = c("TC", "UQ", "Median", "TMM", "DESeq", "PoissonSeq", "QN", "RUV")
+  method = c("TC", "UQ", "median", "TMM", "DESeq", "PoissonSeq", "QN", "RUV")
 )
 }
 \arguments{
-\item{data}{Un-normalized count data set of shape n x p, where n is the
-number of samples and p is the number of markers.}
+\item{data}{Un-normalized count data set of shape p x n, where p is the
+number of markers n is the number of samples.}
 
 \item{groups}{Vector of length n that maps the samples to sample groups.}
 

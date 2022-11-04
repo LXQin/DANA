@@ -13,8 +13,8 @@
 #'     \item Remove Unwanted Variation (RUVg, RUVr, and RUVs)
 #'   }
 #'
-#' @param data Un-normalized count data set of shape n x p, where n is the
-#'   number of samples and p is the number of markers.
+#' @param data Un-normalized count data set of shape p x n, where p is the
+#' number of markers n is the number of samples.
 #' @param groups Vector of length n that maps the samples to sample groups.
 #' @param method Vector of normalization methods that are applied to the data.
 #'   Available methods are: \code{c("TC", "UQ", "median", "TMM", "DESeq",
@@ -26,7 +26,7 @@
 applyNormalization <- function(data,
                                groups,
                                method = c(
-                                 "TC", "UQ", "Median", "TMM", "DESeq",
+                                 "TC", "UQ", "median", "TMM", "DESeq",
                                  "PoissonSeq", "QN", "RUV"
                                )) {
   method <- match.arg(
@@ -206,6 +206,24 @@ norm.Med <- function(raw, groups = rep(1, ncol(raw))) {
 # cpm() could compute normalized count per million based on DGE result
 # We compute cor() between cpm() and our normalized benchmark data and find
 # it to be 1
+# https://academic.oup.com/bib/article/14/6/671/189645
+#' Trimmed Mean of M-values (TMM) Normalization
+#'
+#' Trimmed Mean of M-values (TMM) normalization for miRNA-Seq data.
+#'
+#' @param raw Raw read count matrix (rows = genes, cols = samples).
+#' @param groups Sample groups (subtypes)
+#'
+#' @return A list with the following elements:
+#' \describe{
+#'   \item{dataNormalized}{Normalized read counts.}
+#'   \item{scalingFactor}{Normalizing factors for scaling the raw data.}
+#' }
+#' @export
+#'
+#' @examples
+#' rawCounts <- matrix(0:20, nrow = 7)
+#' normCounts <- norm.TMM(rawCounts)
 norm.TMM <- function(raw, groups = rep(1, ncol(raw))) {
   if (!requireNamespace("edgeR", quietly = TRUE)) {
     stop("Package \"edgeR\" needed for this function to work. Please install it.",
@@ -225,8 +243,7 @@ norm.TMM <- function(raw, groups = rep(1, ncol(raw))) {
   # dataNormalized <- round(t(t(raw)/scalingFactor))
   return(list(
     dataNormalized = dataNormalized,
-    scalingFactor = scalingFactor,
-    dge.normed = d
+    scalingFactor = scalingFactor
   ))
 }
 
@@ -238,6 +255,23 @@ norm.TMM <- function(raw, groups = rep(1, ncol(raw))) {
 
 # https://bioconductor.org/packages/release/bioc/vignettes/DESeq/inst/doc/DESeq.pdf
 # page 4
+#' DESeq Normalization
+#'
+#' DESeq normalization for miRNA-Seq data.
+#'
+#' @param raw Raw read count matrix (rows = genes, cols = samples).
+#' @param groups Sample groups (subtypes)
+#'
+#' @return A list with the following elements:
+#' \describe{
+#'   \item{dataNormalized}{Normalized read counts.}
+#'   \item{scalingFactor}{Normalizing factors for scaling the raw data.}
+#' }
+#' @export
+#'
+#' @examples
+#' rawCounts <- matrix(0:20, nrow = 7)
+#' normCounts <- norm.DESeq(rawCounts)
 norm.DESeq <- function(raw, groups = rep(1, ncol(raw))) {
   if (!requireNamespace("DESeq2", quietly = TRUE)) {
     stop("Package \"DESeq\" needed for this function to work. Please install it.",
@@ -264,6 +298,23 @@ norm.DESeq <- function(raw, groups = rep(1, ncol(raw))) {
 ## PoissonSeq
 
 # https://cran.r-project.org/web/packages/PoissonSeq/PoissonSeq.pdf
+#' PoissonSeq Normalization
+#'
+#' PoissonSeq normalization for miRNA-Seq data.
+#'
+#' @param raw Raw read count matrix (rows = genes, cols = samples).
+#' @param groups Sample groups (subtypes)
+#'
+#' @return A list with the following elements:
+#' \describe{
+#'   \item{dataNormalized}{Normalized read counts.}
+#'   \item{scalingFactor}{Normalizing factors for scaling the raw data.}
+#' }
+#' @export
+#'
+#' @examples
+#' rawCounts <- matrix(0:20, nrow = 7)
+#' normCounts <- norm.PoissonSeq(rawCounts)
 norm.PoissonSeq <- function(raw) {
   if (!requireNamespace("PoissonSeq", quietly = TRUE)) {
     stop("Package \"PoissonSeq\" needed for this function to work. Please install it.",
@@ -283,6 +334,22 @@ norm.PoissonSeq <- function(raw) {
 ## Quantile Normalization (QN)
 
 # http://jtleek.com/genstats/inst/doc/02_05_normalization.html
+#' Quantile Normalization (QN)
+#'
+#' Quantile Normalization (QN) for miRNA-Seq data.
+#'
+#' @param raw Raw read count matrix (rows = genes, cols = samples).
+#' @param groups Sample groups (subtypes)
+#'
+#' @return A list with the following elements:
+#' \describe{
+#'   \item{dataNormalized}{Normalized read counts.}
+#' }
+#' @export
+#'
+#' @examples
+#' rawCounts <- matrix(0:20, nrow = 7)
+#' normCounts <- norm.QN(rawCounts)
 norm.QN <- function(raw, filter = FALSE) {
   if (!requireNamespace("limma", quietly = TRUE)) {
     stop("Package \"limma\" needed for this function to work. Please install it.",
@@ -304,11 +371,19 @@ norm.QN <- function(raw, filter = FALSE) {
 }
 
 
-#' Normalization By Remove Unwanted Variation Using Replicate Samples (RUVs)
-#' Normalize the dataset using RUV using replicate samples, and return the normalized dataset with adjusting factor.
+#' Normalization By Remove Unwanted Variation (RUV)
 #'
-#' @param raw raw count data in the format of data frame or matrix, with columns for samples and raws for genes.
-#' @param groups vector of characters indicating the group for each sample.
+#' Normalize the dataset using RUV. All three sub-methods (RUVg, RUVs, and RUVr)
+#' can be used.
+#'
+#' @param raw Raw read count matrix (rows = genes, cols = samples).
+#' @param groups Sample groups (subtypes)
+#'
+#' @return A list with the following elements:
+#' \describe{
+#'   \item{dataNormalized}{Normalized read counts.}
+#'   \item{adjustFactor}{Adjusting factors for adjusting the design matrix.}
+#' }
 #' @return list, containing \code{dat.normed} (normalized dataset), and the \code{adjust.factor} (adjusting factors) for the design matrix. The normalized dataset could only used for exploration, and adjusting factors are recommended as a covariate in the downstream analysis.
 #'
 #' @export
@@ -316,7 +391,9 @@ norm.QN <- function(raw, filter = FALSE) {
 #' @references \href{http://www.bioconductor.org/packages/devel/bioc/vignettes/RUVSeq/inst/doc/RUVSeq.pdf}{RUVSeq Tutorial}
 #'
 #' @examples
-#' test.RUVs <- norm.RUVs(data.test, data.group)
+#' \dontrun{
+#'   normCounts <- norm.RUV(rawCounts, groups, method="RUVg")
+#' }
 norm.RUV <- function(raw, groups, method = c("RUVg", "RUVs", "RUVr")) {
   if (!require("Biobase")) {
     stop("Package \"Biobase\" needed for this function to work. Please install it.",
@@ -367,7 +444,7 @@ norm.RUV <- function(raw, groups, method = c("RUVg", "RUVs", "RUVr")) {
     dataNormalized <- EDASeq::normCounts(t)
     return(list(
       dataNormalized = dataNormalized,
-      adjust.factor = t$W
+      adjustFactor = t$W
     ))
   } else if (method == "RUVs") {
     differences <- RUVSeq::makeGroups(condition)
@@ -376,7 +453,7 @@ norm.RUV <- function(raw, groups, method = c("RUVg", "RUVs", "RUVr")) {
     dataNormalized <- EDASeq::normCounts(t)
     return(list(
       dataNormalized = dataNormalized,
-      adjust.factor = t$W
+      adjustFactor = t$W
     ))
   } else if (method == "RUVr") {
     design <- stats::model.matrix(~condition, data = Biobase::pData(set))
@@ -393,7 +470,7 @@ norm.RUV <- function(raw, groups, method = c("RUVg", "RUVs", "RUVr")) {
 
     return(list(
       dataNormalized = dataNormalized,
-      adjust.factor = t$W
+      adjustFactor = t$W
     ))
   }
 }

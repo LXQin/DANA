@@ -2,25 +2,32 @@
 % Please edit documentation in R/normalization.R
 \name{norm.RUV}
 \alias{norm.RUV}
-\title{Normalization By Remove Unwanted Variation Using Replicate Samples (RUVs)
-Normalize the dataset using RUV using replicate samples, and return the normalized dataset with adjusting factor.}
+\title{Normalization By Remove Unwanted Variation (RUV)}
 \usage{
 norm.RUV(raw, groups, method = c("RUVg", "RUVs", "RUVr"))
 }
 \arguments{
-\item{raw}{raw count data in the format of data frame or matrix, with columns for samples and raws for genes.}
+\item{raw}{Raw read count matrix (rows = genes, cols = samples).}
 
-\item{groups}{vector of characters indicating the group for each sample.}
+\item{groups}{Sample groups (subtypes)}
 }
 \value{
+A list with the following elements:
+\describe{
+  \item{dataNormalized}{Normalized read counts.}
+  \item{adjustFactor}{Adjusting factors for adjusting the design matrix.}
+}
+
 list, containing \code{dat.normed} (normalized dataset), and the \code{adjust.factor} (adjusting factors) for the design matrix. The normalized dataset could only used for exploration, and adjusting factors are recommended as a covariate in the downstream analysis.
 }
 \description{
-Normalization By Remove Unwanted Variation Using Replicate Samples (RUVs)
-Normalize the dataset using RUV using replicate samples, and return the normalized dataset with adjusting factor.
+Normalize the dataset using RUV. All three sub-methods (RUVg, RUVs, and RUVr)
+can be used.
 }
 \examples{
-test.RUVs <- norm.RUVs(data.test, data.group)
+\dontrun{
+  normCounts <- norm.RUV(rawCounts, groups, method="RUVg")
+}
 }
 \references{
 \href{http://www.bioconductor.org/packages/devel/bioc/vignettes/RUVSeq/inst/doc/RUVSeq.pdf}{RUVSeq Tutorial}
