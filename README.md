@@ -16,9 +16,9 @@ For simplicity, we provide eight commonly used normalization methods:
  - Median (median)
  - Trimmed Median of Means (TMM)
  - DESeq
- - PoissonSeq
  - Quantile Normalization (QN)
  - Remove Unwanted Variation (with subtypes: RUVg, RUVr, and RUVs)
+ - PoissonSeq
  
 For each normalization method under study, DANA computes two assessment metrics: `cc` and `mscr`:
  
@@ -34,11 +34,17 @@ The two metrics can be easily assessed by plotting the metrics in a scatter plot
 
 ## Installation
 
-You can install the released version of DANA directly from github using devtools by:
+You can install the released version of DANA directly from GitHub using devtools by:
 
 ```R
 # install.packages("devtools")
 devtools::install_github("LXQin/DANA")
+```
+
+The R package `PoissonSeq` for PoissonSeq normalization was removed from CRAN, but you can install the archived version from github using:
+
+```R
+devtools::install_github("cran/PoissonSeq")
 ```
 
 ## Usage

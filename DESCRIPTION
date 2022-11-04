@@ -19,7 +19,6 @@ Description: DANA is an approach for assessing the performance of normalization
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends:
 Imports: 
     ggplot2 (>= 3.3.2),
     glmnet,
@@ -30,7 +29,6 @@ Suggests:
     EDASeq (>= 1.99.1),
     edgeR (>= 3.30.3),
     DESeq2,
-    PoissonSeq (>= 1.1.2),
     sva,
     limma,
     ggrepel,
