@@ -26,8 +26,12 @@ partialCor <- function(X, scale=TRUE) {
   X <- X[, !(colSums(abs(X))==0)]
   # Remove genes with constant read count across all markers
   X <- X[, apply(X, 2, function(y) length(unique(y)) > 1)]
-  cat("Partial correlation estimation. Filtered",
-      p-dim(X)[2], "genes from the data\n")
+  # Check for minimum number of genes after filtering
+  if(dim(X)[2] < 4) {
+    stop(paste("Error: Partial correlation estimation. Filtered", p-dim(X)[2],
+               "genes from the data. Too few genes (", dim(X)[2],
+               ") remaining for correlation estimation!"))
+  }
   p <- dim(X)[2]
 
   # modified log2 transform
@@ -99,8 +103,12 @@ pearsonCor <- function(X) {
   X <- X[, !(colSums(abs(X))==0)]
   # Remove genes with constant read count across all markers
   X <- X[, apply(X, 2, function(y) length(unique(y)) > 1)]
-  cat("Pearson correlation estimation. Filtered",
-      p-dim(X)[2], "genes from the data\n")
+  # Check for minimum number of genes after filtering
+  if(dim(X)[2] < 4) {
+    stop(paste("Error: Pearson correlation estimation. Filtered", p-dim(X)[2],
+               "genes from the data. Too few genes (", dim(X)[2],
+               ") remaining for correlation estimation!"))
+  }
   p <- dim(X)[2]
 
   # modified log2 transform

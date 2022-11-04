@@ -111,10 +111,10 @@ assessNormalization <- function(raw,
       controlGenes <- intersect(rownames(normalized[[i]]), negControls)
       warning(
         paste0(length(negControls) - length(controlGenes),
-               " negative control markers not found in normalized data set",
+               " negative control markers not found in normalized data set ",
                names(normalized)[i],
-               ". Reducing number of negative controls for this data set to ",
-               length(controlGenes))
+               ". Reducing number of negative controls for this data set from ",
+               length(negControls), " to ", length(controlGenes))
       )
     }
     if (length(controlGenes) < min.num.neg.controls) {
