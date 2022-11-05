@@ -19,7 +19,7 @@ mscr measures the relative reduction of handling before
 When selecting a normalization method for the raw data, one should
 aim for the best possible trade-off of hight cc and high mscr.
 This function generates a ggplot scatter plot of the DANA metrics
-for the selection of a most suitable normalization method."><title>Scatter plot DANA assessment metrics — plotDANA • DANA</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Scatter plot DANA assessment metrics — plotDANA"><meta property="og:description" content="Plot function for a scatter plot of the DANA result metrics generated
+for the selection of a most suitable normalization method."><title>Scatter plot DANA assessment metrics — plotDANA • DANA</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Scatter plot DANA assessment metrics — plotDANA"><meta property="og:description" content="Plot function for a scatter plot of the DANA result metrics generated
 using the DANA normalization assessment assessNormalization.
 The DANA Assessment metrics for given normalized counts (for each
 normalized count matrix) are provided as a data.frame with
@@ -101,13 +101,14 @@ for the selection of a most suitable normalization method.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plotDANA</span><span class="op">(</span>
-  <span class="va">metrics</span>,
-  label.size <span class="op">=</span> <span class="fl">3</span>,
-  label.repel <span class="op">=</span> <span class="cn">FALSE</span>,
-  fixed.limits.x <span class="op">=</span> <span class="cn">TRUE</span>,
-  fixed.limits.y <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plotDANA</span><span class="op">(</span></span>
+<span>  <span class="va">metrics</span>,</span>
+<span>  label.size <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  label.repel <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">limits.x</span>,</span>
+<span>  <span class="va">limits.y</span>,</span>
+<span>  <span class="va">title</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -116,22 +117,41 @@ for the selection of a most suitable normalization method.</p>
 <dd><p><code>data.frame</code> of DANA metrics containing
 the metrics <code>cc</code> and <code>mscr</code> as columns.
 Each row represents a normalization method.</p></dd>
+
+
 <dt>label.size</dt>
 <dd><p><em>Optional.</em> Text size of the plot labels.</p></dd>
+
+
 <dt>label.repel</dt>
 <dd><p><em>Optional.</em> Logical if the
 <code>ggrepel</code> package is used to space point labels.
 Requires the package <code>ggrepel</code> to be installed.</p></dd>
-<dt>fixed.limits.x</dt>
-<dd><p><em>Optional.</em> Logical if the limits of the x-axis
-(mscr-) are fixed to [0,1]</p></dd>
-<dt>fixed.limits.y</dt>
-<dd><p><em>Optional.</em> Logical if the limits of the y-axis
-(cc+) are fixed to [0,1]</p></dd>
+
+
+<dt>limits.x</dt>
+<dd><p><em>Optional.</em> Must be either missing, NA, or c(x1,x2).
+If not given, x-axis limits are set to [0,1].
+If NA, x-axis limits are automatically scaled to the data.
+If c(x1,x2), x-axis limits are scaled to the interval [x1,x2].</p></dd>
+
+
+<dt>limits.y</dt>
+<dd><p><em>Optional.</em> Must be either missing, NA, or c(y1,y2).
+If not given, y-axis limits are set to [0,1].
+If NA, y-axis limits are automatically scaled to the data.
+If c(y1,y2), y-axis limits are scaled to the interval [y1,y2].</p></dd>
+
+
+<dt>title</dt>
+<dd><p><em>Optional.</em> Plot title</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>ggplot</code> object of a scatter plot for the given DANA metrics.</p>
+    
+
+<p><code>ggplot2</code> object of a scatter plot for the given DANA metrics.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -143,7 +163,7 @@ Requires the package <code>ggrepel</code> to be installed.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer></div>

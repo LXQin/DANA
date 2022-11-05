@@ -37,13 +37,25 @@
     <loc>/reference/listClusters.html</loc>
   </url>
   <url>
+    <loc>/reference/norm.DESeq.html</loc>
+  </url>
+  <url>
     <loc>/reference/norm.Med.html</loc>
+  </url>
+  <url>
+    <loc>/reference/norm.PoissonSeq.html</loc>
+  </url>
+  <url>
+    <loc>/reference/norm.QN.html</loc>
   </url>
   <url>
     <loc>/reference/norm.RUV.html</loc>
   </url>
   <url>
     <loc>/reference/norm.TC.html</loc>
+  </url>
+  <url>
+    <loc>/reference/norm.TMM.html</loc>
   </url>
   <url>
     <loc>/reference/norm.UQ.html</loc>
