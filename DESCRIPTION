@@ -1,7 +1,7 @@
 Package: DANA
 Type: Package
 Title: Data-driven Normalization Assessment for miRNA-Seq Data
-Version: 1.1.1
+Version: 1.2.0
 Authors@R: c( 
     person("Yannick", "D\u00fcren", email="yannick.dueren@rub.de", role=c("aut", "cre")),
     person("Johannes", "Lederer", email="johannes.lederer@rub.de", role="aut"),
