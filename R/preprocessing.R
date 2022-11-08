@@ -123,14 +123,16 @@ defineClusters <- function(genes, chr, pos, threshold=10000) {
     clusters[genesOnChrm[1]] <- curCluster
 
     # sequentially add more genes
-    for (i in 2:length(genesOnChrm)) {
-      if (abs(pos[genesOnChrm[i]] - pos[genesOnChrm[i-1]]) <= threshold) {
-        # add gene to current cluster
-        clusters[genesOnChrm[i]] <- curCluster
-      } else {
-        # new cluster
-        curCluster <- genesOnChrm[i]
-        clusters[genesOnChrm[i]] <- curCluster
+    if(length(genesOnChrm) > 1) {
+      for (i in 2:length(genesOnChrm)) {
+        if (abs(pos[genesOnChrm[i]] - pos[genesOnChrm[i-1]]) <= threshold) {
+          # add gene to current cluster
+          clusters[genesOnChrm[i]] <- curCluster
+        } else {
+          # new cluster
+          curCluster <- genesOnChrm[i]
+          clusters[genesOnChrm[i]] <- curCluster
+        }
       }
     }
   }

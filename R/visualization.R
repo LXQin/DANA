@@ -12,7 +12,7 @@
 #' @param xlim.max Upper limit of the x-axis
 #' @param ylim.max Upper limit of the y-axis
 #'
-#' @return ggplot object of the mean-sd plot
+#' @return ggplot2 object of the mean-sd plot
 #' @export plotMeanSD
 #'
 #' @examples
@@ -75,7 +75,7 @@ plotMeanSD <- function(raw, tZero, tPoor, tWell, title, xlim.max=NA, ylim.max=NA
 #' @param xlim.max Upper limit of the x-axis
 #' @param ylim.max Upper limit of the y-axis
 #'
-#' @return ggplot object of the read count histogram
+#' @return ggplot2 object of the read count histogram
 #' @export plotCountHist
 #'
 #' @examples
@@ -236,7 +236,7 @@ plotDANA <- function(metrics, label.size=3, label.repel=FALSE,
 #'   the function \code{\link{defineClusters}}.
 #' @param title \emph{Optional.} Plot title
 #'
-#' @return \code{ggplot} object of a correlation plot for the given
+#' @return \code{ggplot2} object of a correlation plot for the given
 #' partial correlations.
 #' @export plotCor
 #'

@@ -22,7 +22,7 @@ plotCountHist(raw, binwidth = 0.1, tZero, tPoor, tWell, title)
 \item{ylim.max}{Upper limit of the y-axis}
 }
 \value{
-ggplot object of the read count histogram
+ggplot2 object of the read count histogram
 }
 \description{
 Plots a histogram of the marker-specific mean of log2-transformed

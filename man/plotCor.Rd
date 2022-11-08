@@ -17,7 +17,7 @@ the function \code{\link{defineClusters}}.}
 \item{title}{\emph{Optional.} Plot title}
 }
 \value{
-\code{ggplot} object of a correlation plot for the given
+\code{ggplot2} object of a correlation plot for the given
 partial correlations.
 }
 \description{

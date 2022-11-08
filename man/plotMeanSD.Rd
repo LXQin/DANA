@@ -22,7 +22,7 @@ plotMeanSD(raw, tZero, tPoor, tWell, title, xlim.max = NA, ylim.max = NA)
 \item{ylim.max}{Upper limit of the y-axis}
 }
 \value{
-ggplot object of the mean-sd plot
+ggplot2 object of the mean-sd plot
 }
 \description{
 Plots the marker-specific standard deviation over marker-specific means
