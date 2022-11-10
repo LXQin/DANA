@@ -4,21 +4,24 @@
 \alias{defineClusters}
 \title{Polycistronic clustering of miRNAs}
 \usage{
-defineClusters(genes, chr, pos, threshold = 10000)
+defineClusters(genes, chr, pos, threshold = 10000, ...)
 }
 \arguments{
 \item{genes}{List of genes for which the miRNA clustering is computed.}
 
-\item{chr}{Vector that specifies the chromosome for each miRNA in
-\code{genes}.}
+\item{chr}{\emph{Optional.} Vector that specifies the chromosome for each
+miRNA in \code{genes}. If not given, miRBase v22 chromosomal coordinates is
+used.}
 
-\item{pos}{Vector of the base-pair position of each miRNA in \code{genes} on
-its chromosome, which is specified in \code{chr}. This position could be
-e.g. the start, end or averaged ((start+end)/2) base-pair position on the
-associated chromosome.}
+\item{pos}{\emph{Optional.} Vector of the nucleotice (base-pair) position of
+each miRNA in \code{genes} on its chromosome, which is specified in
+\code{chr}. This position could be e.g. the start, end or averaged
+((start+end)/2) base-pair position on the associated chromosome. If not
+given, miRBase v22 chromosomal coordinates is used.}
 
 \item{threshold}{Maximum distance threshold in base-pairs for the difintion
-of polycistronic clusters.}
+of polycistronic clusters. Default is 10,000, which corresponds to
+miRBase's cluster definition.}
 }
 \value{
 Vector of clusters. Associates each miRNA in \code{genes} to a
@@ -26,5 +29,9 @@ Vector of clusters. Associates each miRNA in \code{genes} to a
 }
 \description{
 Defines polycistronic clusters for a given set of miRNAs based on their
-location on the genome.
+chromosomal location. For microRNAs on the human genome (homo sapiens) using
+mirBAse v22 notation, chromosomal coordinates are provided. These can be used
+e.g. for data from TCGA. If you use miRNA annotation different from miRBase
+v22, you must provide your own chromosomal location including chromosome
+('chr') and nucleotide position on the chromosome ('pos').
 }

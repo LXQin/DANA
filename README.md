@@ -52,11 +52,12 @@ devtools::install_github("cran/PoissonSeq")
 Please refer to the [documentation page](https://lxqin.github.io/DANA/) for detailed function references.
 
 Generally, users need to provide a raw count matrix from RNA-Seq studies (without any normalization or transformation) and information about polycistronic clustering of miRNAs.
-Clustering information can be readily generated using the `defineClusters` function if miRNA chromosome and location information (base-pair/nucleotide location) is available.
+Clustering information can be readily computed using the `defineClusters` function if miRNA chromosome and location information (base-pair/nucleotide location) is available.
+For data using the notation from miRBase (v22), such as data from TCGA, DANA includes all necessary information.
+For data using other notation, the user must provide the chromosome and nucleotide location on each chromosome for each miRNA in the data as inputs `chr` and `pos`, respectively, to the `defineClusters` function.
 
-Assume that `raw.counts` hold the raw un-normalized count data where row names correspond to sample names and column names correspond to marker names.
+Assume that `raw.counts` hold the raw un-normalized count data where row names correspond to genes and column names correspond to sample names.
 `groups` is a vector of sample groups (e.g. sample sub-types).
-Further, `chr` and `loc` provide information about the chromosome and location of each marker in `raw.counts`. 
 
 First, normalize the raw count data using the provided normalization routine:
 
@@ -67,11 +68,22 @@ normalized <- applyNormalization(
   method = c("TC", "UQ", "median", "TMM", "DESeq", "PoissonSeq", "QN", "RUV"))
 ```
 
-Define polycistronic clusters for all miRNAs and positive and negative control markers. 
+Next, define polycistronic clusters for all miRNAs.
+For miRNA data not using miRBase (v22) notation, `chr` and `pos` provide information about the chromosome and location of each marker on the chromosome in `raw.counts`. 
+
+```R
+# miRBase (v22) notation
+clusters <- defineClusters(rownames(raw.counts))
+
+# other notation -> provide "chr" and "pos"
+clusters <- defineClusters(rownames(raw.counts), chr, pos)
+```
+Define and positive and negative control markers using the `defineControls` function. 
+Positive control markers are well-expressed (in [tWell, inf)), clustered markers representing biological effects.
+Negative control markers are poorly-expressed (in [tZero, tPoor]) and primarily represent handling effects.
 Adjust the bounds for positive and negative controls to your data set, e.g. using the helper plot functions `plotMeanSD` and `plotCountHist`.
 
 ```R
-clusters <- defineClusters(colnames(raw.counts), chr, loc)
 controls <- defineControls(
   raw.counts, 
   tZero = 2,     # lower count bound for negative controls
@@ -80,7 +92,7 @@ controls <- defineControls(
   clusters)
 ```
 
-Assess the normalization for your data set:
+Use DANA to assess the normalization for your data set:
 
 ```R
 res <- assessNormalization(
@@ -89,6 +101,12 @@ res <- assessNormalization(
   negControls = controls$negControls,
   posControls = controls$posControls,
   clusters    = clusters)
+```
+
+Finally, assess normalization as stated above and use the `plotDANA` function to compare the result metrics `cc` and `mscr` for each normalization method.
+
+```R
+plotDANA(res)
 ```
 
 
