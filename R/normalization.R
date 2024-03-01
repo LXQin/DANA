@@ -13,6 +13,12 @@
 #'     \item Remove Unwanted Variation (RUVg, RUVr, and RUVs)
 #'   }
 #'
+#' If different groups or conditions are present in the data, the \code{groups}
+#' vector must provide a group label for each sample and, thus,
+#' maps each sample to a sample group (condition).
+#' If "RUV" normalization is applied to the data, \code{groups} \emph{must}
+#' be provided; otherwise, providing sample groups is optional.
+#'
 #' @param data Un-normalized count data set of shape p x n, where p is the
 #' number of markers n is the number of samples.
 #' @param groups Vector of length n that maps the samples to sample groups.
@@ -24,7 +30,7 @@
 #' @export
 #' @return List of normalized read counts for selected normalization methods.
 applyNormalization <- function(data,
-                               groups,
+                               groups = rep(0, ncol(data)),
                                method = c(
                                  "TC", "UQ", "median", "TMM", "DESeq",
                                  "PoissonSeq", "QN", "RUV"
@@ -34,6 +40,26 @@ applyNormalization <- function(data,
     c("TC", "UQ", "median", "TMM", "DESeq", "PoissonSeq", "QN", "RUV"),
     several.ok = TRUE
   )
+
+  ## Check input
+  # Length of group vector must be equal to the number of samples
+  if(length(groups) != ncol(data)) {
+    stop(paste0("The length of the group vector (", length(groups),
+                ") must be equal to the number of samples (", ncol(data),
+                ") in the data matrix."))
+  }
+  # For RUV normalization, at least two factors must be given in groups
+  if(length(unique(levels(factor(groups)))) == 1) {
+    if("RUV" %in% method) {
+      if(all(groups == rep(0, ncol(data)))) {
+        warning("Because no groups (conditions) or only a single group was specified for the data, RUV will not be applied. RUV can only be applied to data with 2 or more groups.")
+      } else {
+        warning("Only a single unique group was found. RUV can only be applied to data with 2 or more groups. RUV will not be applied to the data.")
+      }
+      method <- method[!(method %in% "RUV")]
+    }
+  }
+
 
   data.normalized <- list()
 
@@ -286,7 +312,11 @@ norm.DESeq <- function(raw, groups = rep(1, ncol(raw))) {
 
   condition <- data.frame(SampleName = colnames(raw), Condition = factor(groups))
   rownames(condition) = colnames(raw)
-  dat.DGE <- DESeq2::DESeqDataSetFromMatrix(countData = raw, colData = condition, design = ~ Condition)
+  if(length(unique(groups))==1) {  # Catch Case: Single group -> no different conditions
+    dat.DGE <- DESeq2::DESeqDataSetFromMatrix(countData = raw, colData = condition, design = ~ 1)
+  } else {
+    dat.DGE <- DESeq2::DESeqDataSetFromMatrix(countData = raw, colData = condition, design = ~ Condition)
+  }
   dat.DGE <- DESeq2::estimateSizeFactors(dat.DGE)
   scalingFactor <- DESeq2::sizeFactors(dat.DGE)
   dataNormalized <- BiocGenerics::counts(dat.DGE, normalized = T)

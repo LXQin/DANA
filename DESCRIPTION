@@ -1,7 +1,7 @@
 Package: DANA
 Type: Package
 Title: Data-driven Normalization Assessment for miRNA-Seq Data
-Version: 1.3.0
+Version: 1.3.1
 Authors@R: c( 
     person("Yannick", "D\u00fcren", email="yannick.dueren@rub.de", role=c("aut", "cre")),
     person("Johannes", "Lederer", email="johannes.lederer@rub.de", role="aut"),
@@ -22,7 +22,8 @@ LazyData: true
 Imports: 
     ggplot2 (>= 3.3.2),
     glmnet,
-    DescTools
+    DescTools,
+    ggrepel
 Suggests: 
     Biobase,
     RUVSeq (>= 1.22.0),
@@ -31,8 +32,7 @@ Suggests:
     DESeq2,
     sva,
     limma,
-    ggrepel,
     ggnewscale
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Depends: 
     R (>= 2.10)
