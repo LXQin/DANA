@@ -7,7 +7,7 @@
 plotDANA(
   metrics,
   label.size = 3,
-  label.repel = FALSE,
+  label.repel = TRUE,
   limits.x,
   limits.y,
   title

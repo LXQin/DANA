@@ -74,6 +74,8 @@ plotMeanSD <- function(raw, tZero, tPoor, tWell, title, xlim.max=NA, ylim.max=NA
 #' @param title Plot title
 #' @param xlim.max Upper limit of the x-axis
 #' @param ylim.max Upper limit of the y-axis
+#' @param binwidth \emph{Optional.} The width of the bins as a numeric value.
+#' Default is 0.1.
 #'
 #' @return ggplot2 object of the read count histogram
 #' @export plotCountHist
@@ -159,7 +161,7 @@ plotCountHist <- function(raw, binwidth=0.1, tZero, tPoor, tWell, title) {
 #' @return \code{ggplot2} object of a scatter plot for the given DANA metrics.
 #'
 #' @export plotDANA
-plotDANA <- function(metrics, label.size=3, label.repel=FALSE,
+plotDANA <- function(metrics, label.size=3, label.repel=TRUE,
                      limits.x, limits.y, title) {
   if (label.repel) {
     if (!requireNamespace("ggrepel", quietly = TRUE)) {

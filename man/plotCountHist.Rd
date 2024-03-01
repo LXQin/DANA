@@ -9,6 +9,9 @@ plotCountHist(raw, binwidth = 0.1, tZero, tPoor, tWell, title)
 \arguments{
 \item{raw}{Raw read count matrix (rows = genes, cols = samples).}
 
+\item{binwidth}{\emph{Optional.} The width of the bins as a numeric value.
+Default is 0.1.}
+
 \item{tZero}{\emph{Optional.} Lower bound for negative controls.}
 
 \item{tPoor}{\emph{Optional.} Upper bound for negative controls.}

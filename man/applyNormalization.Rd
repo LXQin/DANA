@@ -6,7 +6,7 @@
 \usage{
 applyNormalization(
   data,
-  groups,
+  groups = rep(0, ncol(data)),
   method = c("TC", "UQ", "median", "TMM", "DESeq", "PoissonSeq", "QN", "RUV")
 )
 }
@@ -37,4 +37,11 @@ Applies single or multiple normalization methods to the given data.
     \item Quantile Normalization (QN)
     \item Remove Unwanted Variation (RUVg, RUVr, and RUVs)
   }
+}
+\details{
+If different groups or conditions are present in the data, the \code{groups}
+vector must provide a group label for each sample and, thus,
+maps each sample to a sample group (condition).
+If "RUV" normalization is applied to the data, \code{groups} \emph{must}
+be provided; otherwise, providing sample groups is optional.
 }
