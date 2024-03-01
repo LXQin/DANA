@@ -283,7 +283,7 @@ norm.TMM <- function(raw, groups = rep(1, ncol(raw))) {
 # page 4
 #' DESeq Normalization
 #'
-#' DESeq normalization for miRNA-Seq data.
+#' DESeq normalization for miRNA-Seq data using the DESeq2 package.
 #'
 #' @param raw Raw read count matrix (rows = genes, cols = samples).
 #' @param groups Sample groups (subtypes)
@@ -300,7 +300,7 @@ norm.TMM <- function(raw, groups = rep(1, ncol(raw))) {
 #' normCounts <- norm.DESeq(rawCounts)
 norm.DESeq <- function(raw, groups = rep(1, ncol(raw))) {
   if (!requireNamespace("DESeq2", quietly = TRUE)) {
-    stop("Package \"DESeq\" needed for this function to work. Please install it.",
+    stop("Package \"DESeq2\" needed for this function to work. Please install it.",
       call. = FALSE
     )
   }

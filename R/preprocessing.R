@@ -43,9 +43,9 @@ defineClusters <- function(genes, chr, pos, threshold=10000,...) {
   # Set up chr and pos
   if(use.mirbase) {
     # check for genes that are not present in the coordinate data frame
-    genes.in.coords <- rownames(miRNA.coordinates)[na.omit(match(rownames(counts), rownames(miRNA.coordinates)))]
-    if(dim(counts)[1]-length(genes.in.coords) > 1) {
-      cat(dim(counts)[1]-length(genes.in.coords),
+    genes.in.coords <- rownames(miRNA.coordinates)[na.omit(match(genes, rownames(miRNA.coordinates)))]
+    if(length(genes)-length(genes.in.coords) > 1) {
+      cat(length(genes)-length(genes.in.coords),
           " either have no unique chromosomal coordinate or could not be found in the hsa miRBase coordinate set. Reducing gene set to ",
           length(genes.in.coords), "genes.\n")
     }

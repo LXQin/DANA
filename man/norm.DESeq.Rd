@@ -19,7 +19,7 @@ A list with the following elements:
 }
 }
 \description{
-DESeq normalization for miRNA-Seq data.
+DESeq normalization for miRNA-Seq data using the DESeq2 package.
 }
 \examples{
 rawCounts <- matrix(0:20, nrow = 7)
